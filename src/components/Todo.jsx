@@ -11,10 +11,22 @@ const Todo = () => {
         alert("Plz fill the data");
     }
     else{
-        setItems([...items,inputData])
+        const myNewInpurData={
+            id:new Date().getTime().toString(),
+            name:inputData,
+        }
+        setItems([...items,myNewInpurData])
+        setInputData("");
     }
    }
+// how to delete item from setion 
+  const deleteItem =(index)=>{
+    const updatedItems=items.filter((curElem)=>{
+        return curElem.id!==index;
+    });
+    setItems(updatedItems)
 
+  }
 
   return (
     <>
@@ -37,13 +49,13 @@ const Todo = () => {
           {/* remove our items  */}
           <div className="showItems">
                 {
-                    items.map((curElem,index)=>{
+                    items.map((curElem)=>{
                         return(
-                            <div className="eachItem" key={index}>  
-                             <h3>{curElem}</h3>
+                            <div className="eachItem" key={curElem.id}>  
+                             <h3>{curElem.name}</h3>
                           <div className="todo-btn">
                           <i className="far fa-edit add-btn"></i>
-                          <i className="far fa-trash-alt add-btn"></i>
+                          <i className="far fa-trash-alt add-btn" onClick={()=>deleteItem(curElem.id)}></i>
                             </div>
                          </div>   
 
