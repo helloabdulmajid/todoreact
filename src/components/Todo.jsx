@@ -8,7 +8,7 @@ const Todo = () => {
 // add the items using this function 
    const addItems=()=>{
     if(!inputData){
-        alert("Plz fill the data");
+        alert("Please Add atleast any todo Before adding a list");
     }
     else{
         const myNewInpurData={
