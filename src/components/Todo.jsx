@@ -5,6 +5,7 @@ import "./style.css";
 const Todo = () => {
     const[inputData,setInputData]=useState("");
     const[items,setItems]=useState([]);
+
 // add the items using this function 
    const addItems=()=>{
     if(!inputData){
@@ -19,7 +20,7 @@ const Todo = () => {
         setInputData("");
     }
    }
-// how to delete item from setion 
+// how to delete item from section 
   const deleteItem =(index)=>{
     const updatedItems=items.filter((curElem)=>{
         return curElem.id!==index;
