@@ -32,6 +32,12 @@ const Todo = () => {
         setInputData("");
     }
    }
+
+  // edit the items
+  
+  const editItem=(index)=>{
+
+  }
 // how to delete item from section 
   const deleteItem =(index)=>{
     const updatedItems=items.filter((curElem)=>{
@@ -83,7 +89,7 @@ const Todo = () => {
                             <div className="eachItem" key={curElem.id}>  
                              <h3>{curElem.name}</h3>
                           <div className="todo-btn">
-                          <i className="far fa-edit add-btn"></i>
+                          <i className="far fa-edit add-btn" onClick={()=>editItem(curElem.id)}></i>
                           <i className="far fa-trash-alt add-btn" onClick={()=>deleteItem(curElem.id)}></i>
                             </div>
                          </div>   
