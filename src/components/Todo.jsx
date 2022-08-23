@@ -15,29 +15,50 @@ const getLocalData =()=>{
 }
 
 const Todo = () => {
-    const[inputData,setInputData]=useState("");
+    const[inputdata,setInputData]=useState("");
     const[items,setItems]=useState(getLocalData());
+    const [isEditItem, setIsEditItem] = useState("");
+    const [toggleButton, setToggleButton] = useState(false);
 
-// add the items using this function 
-   const addItems=()=>{
-    if(!inputData){
-        alert("Please Add atleast any todo Before adding a list");
+  // add the items fucnction
+  const addItems = () => {
+    if (!inputdata) {
+      alert("plz fill the data");
+    } else if (inputdata && toggleButton) {
+      setItems(
+        items.map((curElem) => {
+          if (curElem.id === isEditItem) {
+            return { ...curElem, name: inputdata };
+          }
+          return curElem;
+        })
+      );
+
+      setInputData("");
+      setIsEditItem(null);
+      setToggleButton(false);
+    } else {
+      const myNewInputData = {
+        id: new Date().getTime().toString(),
+        name: inputdata,
+      };
+      setItems([...items, myNewInputData]);
+      setInputData("");
     }
-    else{
-        const myNewInpurData={
-            id:new Date().getTime().toString(),
-            name:inputData,
-        }
-        setItems([...items,myNewInpurData])
-        setInputData("");
-    }
-   }
+  };
 
-  // edit the items
-  
-  const editItem=(index)=>{
+  //edit the items
+  const editItem = (index) => {
+    const item_todo_edited = items.find((curElem) => {
+      return curElem.id === index;
+    });
+    setInputData(item_todo_edited.name);
+    setIsEditItem(index);
+    setToggleButton(true);
+  };
 
-  }
+
+
 // how to delete item from section 
   const deleteItem =(index)=>{
     const updatedItems=items.filter((curElem)=>{
@@ -76,12 +97,16 @@ const Todo = () => {
               type="text"
               placeholder="✍ Add Items"
               className="form-control"
-              value={inputData}
+              value={inputdata}
               onChange={(event)=>setInputData(event.target.value)}
             />
-            <i className="fa fa-plus add-btn" onClick={addItems}></i>
+           {toggleButton ? (
+              <i className="far fa-edit add-btn" onClick={addItems}></i>
+            ) : (
+              <i className="fa fa-plus add-btn" onClick={addItems}></i>
+            )}
           </div>
-          {/* remove our items  */}
+          {/* show our items  */}
           <div className="showItems">
                 {
                     items.map((curElem)=>{
